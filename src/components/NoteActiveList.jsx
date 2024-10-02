@@ -9,7 +9,7 @@ function NoteActiveList({ notes, onDelete, onArchive }) {
     <>
       {ActiveNotes.length > 0 ? (
         <div className='notes-list'>
-          {notes.map((note) => (
+          {ActiveNotes.map((note) => (
             <NoteItem
               key={note.id}
               onDelete={onDelete}
