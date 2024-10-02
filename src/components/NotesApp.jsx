@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
-import FormInput from './FormInput';
+import NoteInput from './NoteInput';
 import { getInitialData } from '../utils';
 import NoteList from './NoteList';
 
@@ -54,7 +54,7 @@ class NotesApp extends React.Component {
       <div>
         <Navbar />
         <div className='note-app__body'>
-          <FormInput addNote={this.onAddNoteHandler} />
+          <NoteInput addNote={this.onAddNoteHandler} />
           <NoteList
             notes={this.state.notes}
             onDelete={this.onDeleteHandler}

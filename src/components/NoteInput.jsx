@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FormInput extends React.Component {
+class NoteInput extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,4 +68,4 @@ class FormInput extends React.Component {
   }
 }
 
-export default FormInput;
+export default NoteInput;
