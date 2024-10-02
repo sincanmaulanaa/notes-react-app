@@ -4,7 +4,6 @@ import EmptyMessage from './EmptyMessage';
 
 function NoteActiveList({ notes, onDelete, onArchive }) {
   const ActiveNotes = notes.filter((note) => note.archived === false);
-  console.log(ActiveNotes);
   return (
     <>
       {ActiveNotes.length > 0 ? (

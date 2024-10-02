@@ -33,8 +33,6 @@ class FormInput extends React.Component {
   onSubmitEventHandler(event) {
     event.preventDefault();
     this.props.addNote(this.state);
-    console.log(this.state.title);
-    console.log(this.state.body);
   }
 
   render() {
