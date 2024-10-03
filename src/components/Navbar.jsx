@@ -1,11 +1,12 @@
 import React from 'react';
 import SearchInput from './SearchInput';
 
-function Navbar() {
+function Navbar({ searchNote }) {
+  console.log(searchNote);
   return (
     <div className='note-app__header'>
       <h1>Notesly</h1>
-      <SearchInput />
+      <SearchInput searchNote={searchNote} />
     </div>
   );
 }

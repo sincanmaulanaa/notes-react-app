@@ -10,11 +10,13 @@ class NotesApp extends React.Component {
 
     this.state = {
       notes: getInitialData(),
+      unFilteredNotes: getInitialData(),
     };
 
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
+    this.onSearchHandler = this.onSearchHandler.bind(this);
   }
 
   onAddNoteHandler({ title, body }) {
@@ -30,29 +32,66 @@ class NotesApp extends React.Component {
             createdAt: new Date().toISOString(),
           },
         ],
+        unFilteredNotes: [
+          ...prevState.unFilteredNotes,
+          {
+            id: +new Date(),
+            title,
+            body,
+            archived: false,
+            createdAt: new Date().toISOString(),
+          },
+        ],
       };
     });
   }
 
   onDeleteHandler(id) {
-    const notes = this.state.notes.filter((note) => note.id !== id);
+    const notes = this.state.unFilteredNotes.filter((note) => note.id !== id);
     this.setState({ notes });
   }
 
   onArchiveHandler(id) {
+    const noteToArchive = this.state.unFilteredNotes.filter(
+      (note) => note.id === id
+    )[0];
+    const archivedNote = {
+      ...noteToArchive,
+      archived: !noteToArchive.archived,
+    };
+
     this.setState((prevState) => {
       return {
-        notes: prevState.notes.map((note) =>
-          note.id === id ? { ...note, archived: !note.archived } : note
-        ),
+        notes: [
+          ...prevState.notes.filter((note) => note.id !== id),
+          archivedNote,
+        ],
+        unFilteredNotes: [
+          ...prevState.unFilteredNotes.filter((note) => note.id !== id),
+          archivedNote,
+        ],
       };
     });
+  }
+
+  onSearchHandler(title) {
+    if (title.length !== 0 && title.trim() !== '') {
+      this.setState({
+        notes: this.state.unFilteredNotes.filter((note) =>
+          note.title.toLowerCase().includes(title.toLowerCase())
+        ),
+      });
+    } else {
+      this.setState({
+        notes: this.state.unFilteredNotes,
+      });
+    }
   }
 
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar notes={this.state.notes} searchNote={this.onSearchHandler} />
         <div className='note-app__body'>
           <NoteInput addNote={this.onAddNoteHandler} />
           <NoteList

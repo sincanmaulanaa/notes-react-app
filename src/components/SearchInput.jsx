@@ -1,35 +1,19 @@
 import React from 'react';
 
-class SearchInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: '',
-    };
-
-    this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
-  }
-
-  onTitleChangeEventHandler(event) {
-    this.setState(() => {
-      return {
-        title: event.target.value,
-      };
-    });
-  }
-
-  render() {
-    return (
-      <div className='note-search'>
-        <input
-          placeholder='Cari catatan...'
-          value={this.state.title}
-          onChange={this.onTitleChangeEventHandler}
-        />
-      </div>
-    );
-  }
+function SearchInput({ searchNote }) {
+  const onSearchEventChange = (event) => {
+    searchNote(event.target.value);
+    console.log(event.target.value);
+  };
+  return (
+    <div className='note-search'>
+      <input
+        type='text'
+        placeholder='Cari catatan...'
+        onChange={onSearchEventChange}
+      />
+    </div>
+  );
 }
 
 export default SearchInput;
