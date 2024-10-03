@@ -7,6 +7,7 @@ class NoteInput extends React.Component {
     this.state = {
       title: '',
       body: '',
+      titleMaxLength: 50,
     };
 
     this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
@@ -15,11 +16,16 @@ class NoteInput extends React.Component {
   }
 
   onTitleChangeEventHandler(event) {
-    this.setState(() => {
-      return {
-        title: event.target.value,
-      };
-    });
+    const newTitle = event.target.value;
+
+    if (newTitle.length <= 50) {
+      this.setState(() => {
+        return {
+          title: newTitle,
+          titleMaxLength: 50 - newTitle.length,
+        };
+      });
+    }
   }
 
   onBodyChangeEventHandler(event) {
@@ -49,7 +55,7 @@ class NoteInput extends React.Component {
               onChange={this.onTitleChangeEventHandler}
             />
             <span className='note-input__title__char-limit'>
-              Sisa Karakter: 50
+              Sisa Karakter: {this.state.titleMaxLength}
             </span>
             <textarea
               className='note-input__body'
