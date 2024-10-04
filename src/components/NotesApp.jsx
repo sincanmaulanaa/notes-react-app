@@ -47,8 +47,14 @@ class NotesApp extends React.Component {
   }
 
   onDeleteHandler(id) {
-    const notes = this.state.unFilteredNotes.filter((note) => note.id !== id);
-    this.setState({ notes });
+    this.setState((prevState) => {
+      return {
+        notes: prevState.notes.filter((note) => note.id !== id),
+        unFilteredNotes: prevState.unFilteredNotes.filter(
+          (note) => note.id !== id
+        ),
+      };
+    });
   }
 
   onArchiveHandler(id) {
